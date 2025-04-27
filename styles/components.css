@@ -114,3 +114,25 @@ input[type="text"] {
   background: #f3f4f6;
   border-radius: var(--radius-s);
 }
+
+/* Notification toast */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border-radius: var(--radius-s);
+  font-size: 16px;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 1000;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

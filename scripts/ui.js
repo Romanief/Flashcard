@@ -40,3 +40,16 @@ export function showCard(card) {
 export function flipCardUI() {
   cardEl.classList.toggle('flipped');
 }
+
+/**
+ * Shows a temporary toast notification.
+ */
+export function showNotification(message) {
+  const notif = document.getElementById('notification');
+  notif.textContent = message;
+  notif.classList.add('show');
+  // hide after 2s
+  setTimeout(() => {
+    notif.classList.remove('show');
+  }, 2000);
+}
