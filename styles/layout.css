@@ -1,0 +1,61 @@
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+h1, h2, h3 {
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Study Section */
+section {
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Modal Layout */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  position: relative;
+  text-align: center;
+}
+
+/* Divider */
+.divider {
+  width: 80%;
+  height: 1px;
+  background: #ddd;
+  margin: 20px auto;
+  opacity: 0.6;
+}
