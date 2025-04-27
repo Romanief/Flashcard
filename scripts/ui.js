@@ -30,6 +30,8 @@ const toastBackgrounds = [
   'linear-gradient(135deg, #fbcfe8, #fcd34d)'       // pastel sunset
 ];
 
+let toastTimeout;  // Track for showNotification function
+
 export function renderFlashcardsList() {
   listEl.innerHTML = '';
   getFlashcards().forEach(card => {
@@ -68,19 +70,29 @@ export function flipCardUI() {
 export function showNotification() {
   const notif = document.getElementById('notification');
 
-  // pick a random message
+  // 1. Clear any pending hide
+  clearTimeout(toastTimeout);
+
+  // 2. Remove show class (if present)
+  notif.classList.remove('show');
+
+  // 3. Force reflow to reset the animation
+  //    reading offsetWidth “flushes” pending styles
+  //    and makes the browser treat the next addition as new
+  // eslint-disable-next-line no-unused-expressions
+  notif.offsetWidth;
+
+  // 4. Pick random message & background
   const msgIndex = Math.floor(Math.random() * toastMessages.length);
-  // pick a random background
   const bgIndex  = Math.floor(Math.random() * toastBackgrounds.length);
+  notif.textContent       = toastMessages[msgIndex];
+  notif.style.background  = toastBackgrounds[bgIndex];
 
-  notif.textContent = toastMessages[msgIndex];
-  notif.style.background = toastBackgrounds[bgIndex];
-
-  // show it
+  // 5. Add class to trigger animation
   notif.classList.add('show');
 
-  // hide after 2s
-  setTimeout(() => {
+  // 6. Schedule the hide
+  toastTimeout = setTimeout(() => {
     notif.classList.remove('show');
-  }, 2000);
+  }, 800);
 }
