@@ -11,7 +11,6 @@ import {
   renderFlashcardsList,
   updateScore,
   showCard,
-  flipCardUI
 } from './ui.js';
 
 import { showNotification } from './ui.js';
@@ -31,10 +30,6 @@ export function bindAppEvents() {
       renderFlashcardsList();
       e.target.reset();
     });
-
-  // 2) Flip
-  document.getElementById('flip')
-    .addEventListener('click', flipCardUI);
 
   // 3) Mark correct
   document.getElementById('correct')

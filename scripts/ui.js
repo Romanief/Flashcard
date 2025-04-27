@@ -62,10 +62,6 @@ export function showCard(card) {
   cardEl.classList.remove('flipped');
 }
 
-export function flipCardUI() {
-  cardEl.classList.toggle('flipped');
-}
-
 // Shows a temporary toast notification (randomly selected).
 export function showNotification() {
   const notif = document.getElementById('notification');
