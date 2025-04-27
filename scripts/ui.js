@@ -1,6 +1,6 @@
 // scripts/ui.js
 
-import { correctTotal, wrongTotal, getFlashcards } from './flashcards.js';
+import { isReviseMode, getNextCard, correctTotal, wrongTotal } from './flashcards.js';
 import { openModal } from './modal.js';
 
 // DOM references
@@ -111,12 +111,19 @@ export function showCard(card) {
     return;
   }
 
-  // Normal flashcard display
+  // Normal card display
+  cardEl.onclick = null;
+  cardEl.style.cursor = 'default';
+  if (!card) {
+    if (isReviseMode()) {
+      cardFront.textContent = 'No learned flashcards to revise! ✨';
+    } else {
+      cardFront.textContent = 'All flashcards mastered! 🎉';
+    }
+    cardBack.textContent = '';
+    return;
+  }
   cardFront.textContent = card.front;
   cardBack.textContent  = card.back;
-
-  // Clear any mastered-state handlers
   cardEl.classList.remove('flipped');
-  cardEl.style.cursor   = 'default';
-  cardEl.onclick        = null;
 }

@@ -4,7 +4,8 @@ import {
   markCorrect,
   markWrong,
   getNextCard,
-  getFlashcards
+  getFlashcards,
+  toggleReviseMode
 } from './flashcards.js';
 
 import {
@@ -18,7 +19,16 @@ import { showNotification } from './ui.js';
 import { saveFlashcards, loadFlashcards } from './storage.js';
 
 export function bindAppEvents() {
-  // 1) On form submit: add then save *current* flashcards
+  // Activate revise mode
+  const reviseBtn = document.getElementById('revise-mode');
+  reviseBtn.addEventListener('click', () => {
+    const inRevise = toggleReviseMode();
+    reviseBtn.textContent = inRevise ? 'Exit Revise Mode' : 'Revise Mode';
+    const next = getNextCard();
+    showCard(next);
+  });
+
+  // On form submit: add then save *current* flashcards
   document.getElementById('card-form')
     .addEventListener('submit', e => {
       e.preventDefault();
@@ -31,7 +41,7 @@ export function bindAppEvents() {
       e.target.reset();
     });
 
-  // 3) Mark correct
+  // Mark correct
   document.getElementById('correct')
     .addEventListener('click', () => {
       markCorrect();
@@ -41,7 +51,7 @@ export function bindAppEvents() {
       updateScore();
     });
 
-  // 4) Mark wrong
+  // Mark wrong
   document.getElementById('wrong')
     .addEventListener('click', () => {
       markWrong();
@@ -51,14 +61,14 @@ export function bindAppEvents() {
       updateScore();
     });
 
-  // 5) Remove via custom event
+  // Remove via custom event
   window.addEventListener('card:remove', e => {
     removeFlashcard(e.detail);
     saveFlashcards(getFlashcards());       // ← save the up-to-date array
     renderFlashcardsList();
   });
 
-  // 6) Keyboard shortcuts
+  // Keyboard shortcuts
   window.addEventListener('keydown', e => {
     if (e.code === 'Space') {
       e.preventDefault();
@@ -71,7 +81,7 @@ export function bindAppEvents() {
     if (e.code === 'KeyF') document.getElementById('flip').click();
   });
 
-  // 7) Manage toast pop up
+  // Manage toast pop up
   document.getElementById('correct')
   .addEventListener('click', () => {
     markCorrect();
