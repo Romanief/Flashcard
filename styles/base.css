@@ -1,17 +1,39 @@
-/* Reset */
+/* Resets, CSS variables, typography, background, and utility classes. */
+/* 1. Reset & Box Sizing */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body */
+/* 2. CSS Variables */
+:root {
+  --font-family-sans: 'Poppins', sans-serif;
+  --color-bg-gradient-start: #74ebd5;
+  --color-bg-gradient-end:   #ACB6E5;
+  --color-text: #333;
+  --color-card-back: #10b981;
+  --color-button-bg: #4f46e5;
+  --color-button-hover: #6366f1;
+  --color-input-border: #ccc;
+  --color-overlay: rgba(0,0,0,0.5);
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+}
+
+/* 3. Base Typography & Body */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+  font-family: var(--font-family-sans);
+  background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+}
+
+/* 4. Utility Classes */
+.hidden {
+  display: none !important;
 }

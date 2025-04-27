@@ -1,13 +1,11 @@
-/* Smooth Scrollbar Styling */
+/* Custom scrollbar for the card list container only. */
 #card-list-container::-webkit-scrollbar {
   width: 8px;
 }
-
 #card-list-container::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
-
 #card-list-container::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
