@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcard Trainer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Flashcard Logo" class="logo">
+    <h1>Flashcard Trainer</h1>
+  </header>
+
+  <section id="study">
+    <h2>Study Mode</h2>
+    <div id="card-container">
+      <div id="card" class="card">
+        <div class="front" id="card-front">Press Space to start studying!</div>
+        <div class="back" id="card-back"></div>
+      </div>
+    </div>
+
+    <div id="answer"></div>
+    <button id="flip">Flip</button>
+    <button id="correct">I got it right</button>
+    <button id="wrong">I got it wrong</button>
+
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+
+    <p id="score">Score: 0 correct, 0 wrong</p>
+    <button id="open-manage">Manage Flashcards</button>
+  </section>
+
+  <!-- Modal -->
+  <div id="manage-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2>Manage Flashcards</h2>
+      <form id="card-form">
+        <input type="text" id="front" placeholder="Front" required>
+        <input type="text" id="back" placeholder="Back" required>
+        <button type="submit">Add Card</button>
+      </form>
+      <ul id="card-list"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
