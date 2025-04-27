@@ -1,6 +1,7 @@
+// modal.js
 const modal = document.getElementById('manage-modal');
 const openBtn = document.getElementById('open-manage');
-const closeBtn= document.getElementById('close-modal');
+const closeBtn = document.getElementById('close-modal');
 
 export function bindModalEvents() {
   openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
@@ -8,4 +9,9 @@ export function bindModalEvents() {
   window.addEventListener('click', e => {
     if (e.target === modal) modal.classList.add('hidden');
   });
+}
+
+// allow other code to open the modal
+export function openModal() {
+  modal.classList.remove('hidden');
 }

@@ -1,5 +1,9 @@
-import { getFlashcards, correctTotal, wrongTotal } from './flashcards.js';
+// scripts/ui.js
 
+import { correctTotal, wrongTotal, getFlashcards } from './flashcards.js';
+import { openModal } from './modal.js';
+
+// DOM references
 const cardFront = document.getElementById('card-front');
 const cardBack  = document.getElementById('card-back');
 const cardEl    = document.getElementById('card');
@@ -7,7 +11,7 @@ const scoreDisp = document.getElementById('score');
 const progress  = document.getElementById('progress');
 const listEl    = document.getElementById('card-list');
 
-// toasts for showNotification function
+// Toast messages and background options
 const toastMessages = [
   '✨ Well done! ✨',
   '🎉 You nailed it! 🎉',
@@ -21,74 +25,98 @@ const toastMessages = [
   '👏 Bravo! 👏'
 ];
 
-// 5 background options
 const toastBackgrounds = [
-  '#14b8a6',                                            // cool teal
-  '#8b5cf6',                                            // vibrant violet
-  '#f59e0b',                                            // warm amber
-  'linear-gradient(135deg, #0ea5e9, #3b82f6)',      // deep ocean
+  '#14b8a6',                                        // cool teal
+  '#8b5cf6',                                        // vibrant violet
+  '#f59e0b',                                        // warm amber
+  'linear-gradient(135deg, #0ea5e9, #3b82f6)',      // deep ocean gradient
   'linear-gradient(135deg, #fbcfe8, #fcd34d)'       // pastel sunset
 ];
 
-let toastTimeout;  // Track for showNotification function
+let toastTimeout;
 
+/**
+ * Renders the flashcards list in the Manage modal.
+ */
 export function renderFlashcardsList() {
+  const flashcards = getFlashcards();
   listEl.innerHTML = '';
-  getFlashcards().forEach(card => {
+  flashcards.forEach(card => {
     const li = document.createElement('li');
     li.textContent = `${card.front} - ${card.back}`;
     const btn = document.createElement('button');
     btn.textContent = 'Delete';
-    btn.onclick = () => window.dispatchEvent(new CustomEvent('card:remove', { detail: card.id }));
+    btn.onclick = () => window.dispatchEvent(
+      new CustomEvent('card:remove', { detail: card.id })
+    );
     li.appendChild(btn);
     listEl.appendChild(li);
   });
 }
 
+/**
+ * Updates the score display and progress bar.
+ */
 export function updateScore() {
   const total = (correctTotal + wrongTotal) || 1;
   scoreDisp.textContent = `Score: ${correctTotal} correct, ${wrongTotal} wrong`;
-  progress.style.width = `${(correctTotal/total)*100}%`;
+  progress.style.width = `${(correctTotal / total) * 100}%`;
 }
 
-export function showCard(card) {
-  if (!card) {
-    cardFront.textContent = 'All flashcards mastered! 🎉';
-    cardBack.textContent = '';
-    return;
-  }
-  cardFront.textContent = card.front;
-  cardBack.textContent = card.back;
-  cardEl.classList.remove('flipped');
-}
-
-// Shows a temporary toast notification (randomly selected).
+/**
+ * Shows a temporary toast notification with random message & background.
+ */
 export function showNotification() {
   const notif = document.getElementById('notification');
 
-  // 1. Clear any pending hide
+  // Clear any pending hide timer
   clearTimeout(toastTimeout);
 
-  // 2. Remove show class (if present)
+  // Reset animation state
   notif.classList.remove('show');
+  // Force reflow to restart CSS transition
+  void notif.offsetWidth;
 
-  // 3. Force reflow to reset the animation
-  //    reading offsetWidth “flushes” pending styles
-  //    and makes the browser treat the next addition as new
-  // eslint-disable-next-line no-unused-expressions
-  notif.offsetWidth;
-
-  // 4. Pick random message & background
+  // Pick random message and background
   const msgIndex = Math.floor(Math.random() * toastMessages.length);
   const bgIndex  = Math.floor(Math.random() * toastBackgrounds.length);
+
   notif.textContent       = toastMessages[msgIndex];
   notif.style.background  = toastBackgrounds[bgIndex];
 
-  // 5. Add class to trigger animation
+  // Trigger show animation
   notif.classList.add('show');
 
-  // 6. Schedule the hide
+  // Hide after 2 seconds
   toastTimeout = setTimeout(() => {
     notif.classList.remove('show');
   }, 800);
+}
+
+/**
+ * Displays the given card or a "mastered" message with click-to-add behavior.
+ * @param {Object|null} card
+ */
+export function showCard(card) {
+  if (!card) {
+    cardFront.textContent = 'All flashcards mastered! 🎉';
+    cardBack.textContent  = 'Click here to add more';
+
+    // Ensure no stuck flip state
+    cardEl.classList.remove('flipped');
+
+    // Make the card look clickable and bind click
+    cardEl.style.cursor = 'pointer';
+    cardEl.onclick      = openModal;
+    return;
+  }
+
+  // Normal flashcard display
+  cardFront.textContent = card.front;
+  cardBack.textContent  = card.back;
+
+  // Clear any mastered-state handlers
+  cardEl.classList.remove('flipped');
+  cardEl.style.cursor   = 'default';
+  cardEl.onclick        = null;
 }
