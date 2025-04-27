@@ -7,67 +7,69 @@
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/scrollbar.css">
-    <link rel="stylesheet" href="styles/utilities.css">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
-<body>
+  <body>
 
-  <header>
-    <img src="assets/logo.png" alt="FredCard Logo" class="logo">
-    <h1>FredCard</h1>
-  </header>
+    <header>
+      <img src="assets/logo.png" alt="FredCard Logo" class="logo">
+      <h1>FredCard</h1>
+    </header>
 
-  <!-- Main section -->
-  <section id="study">
-    <h2>Study Mode</h2>
+    <section id="study">
+      <h2>Study Mode</h2>
 
-    <div id="card-container">
-      <div id="card" class="card">
-        <div class="front" id="card-front">Press Space to start studying!</div>
-        <div class="back" id="card-back"></div>
+      <div id="card-container">
+        <div id="card" class="card">
+          <div class="front" id="card-front">Press Space to start studying!</div>
+          <div class="back" id="card-back"></div>
+        </div>
+      </div>
+
+      <div id="answer"></div>
+
+      <!-- Buttons for marking answers -->
+      <button id="correct">I got it right</button>
+      <button id="wrong">I got it wrong</button>
+
+      <div class="progress-bar">
+        <div id="progress" class="progress"></div>
+      </div>
+
+      <p id="score">Score: 0 correct, 0 wrong</p>
+
+      <!-- settings icon -->
+      <button id="open-manage" class="icon-button" aria-label="Manage Flashcards">
+        ⚙️
+      </button>
+    </section>
+
+    <!-- Manage Flashcards Modal -->
+    <div id="manage-modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="close-modal">&times;</span>
+        <h2>Manage Flashcards</h2>
+
+        <form id="card-form">
+          <input type="text" id="front" placeholder="Front" required>
+          <input type="text" id="back" placeholder="Back" required>
+          <button type="submit">Add Flashcard</button>
+        </form>
+
+        <div class="divider"></div>
+
+        <h3>Your Flashcards</h3>
+        <div id="card-list-container">
+          <ul id="card-list"></ul>
+        </div>
+
       </div>
     </div>
 
-    <div id="answer"></div>
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
 
-    <button id="correct">I got it right</button>
-    <button id="wrong">I got it wrong</button>
-
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
-    </div>
-
-    <p id="score">Score: 0 correct, 0 wrong</p>
-
-    <button id="open-manage">Manage Flashcards</button>
-  </section>
-
-  <!-- Manage Flashcards Modal -->
-  <div id="manage-modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="close-modal">&times;</span>
-      <h2>Manage Flashcards</h2>
-
-      <form id="card-form">
-        <input type="text" id="front" placeholder="Front" required>
-        <input type="text" id="back" placeholder="Back" required>
-        <button type="submit">Add Flashcard</button>
-      </form>
-
-      <div class="divider"></div>
-
-      <h3>Your Flashcards</h3>
-      <div id="card-list-container">
-        <ul id="card-list"></ul>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Toast pop up -->
-  <div id="notification" class="notification"></div>
-
-  <script type="module" src="scripts/app.js"></script>
-</body>
+    <script type="module" src="scripts/app.js"></script>
+  </body>
 </html>

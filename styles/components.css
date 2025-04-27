@@ -59,6 +59,25 @@ button:hover {
   transform: translateY(-2px);
 }
 
+/* Settings Icon Button */
+.icon-button {
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 8px;
+  color: var(--color-text);
+  transition: transform 0.4s ease;
+}
+.icon-button:hover {
+  background: none;
+  transform: rotate(360deg);
+  color: var(--color-button-bg);
+}
+
 /* 4. Text Inputs */
 input[type="text"] {
   width: 45%;
@@ -115,7 +134,7 @@ input[type="text"] {
   border-radius: var(--radius-s);
 }
 
-/* Notification toast */
+/* 8. Notification toast */
 .notification {
   position: fixed;
   bottom: 20px;
@@ -134,4 +153,9 @@ input[type="text"] {
 .notification.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* 9. Study */
+#study {
+  position: relative;
 }
