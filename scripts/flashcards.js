@@ -24,6 +24,14 @@ export function removeFlashcard(id) {
   return flashcards;
 }
 
+export function resetFlashcard() {
+  flashcards.forEach(card => {
+    card.learned = false;
+    correctStreak = 0;
+    wrongCount = 0;
+  })
+}
+
 export function markCorrect() {
   if (!currentCard) return;
   currentCard.correctStreak++;

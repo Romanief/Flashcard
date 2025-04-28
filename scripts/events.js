@@ -4,7 +4,8 @@ import {
   markCorrect,
   markWrong,
   getNextCard,
-  getFlashcards
+  getFlashcards,
+  resetFlashcard
 } from './flashcards.js';
 
 import {
@@ -84,4 +85,10 @@ export function bindAppEvents() {
     showCard(next);
     updateScore();
   });
+
+  // 8) Reset cards
+  document.getElementById("reset")
+  .addEventListener("click", ()=> {
+    resetFlashcard()
+  })
 }
